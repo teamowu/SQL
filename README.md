@@ -132,3 +132,41 @@ END AS 'Mood'
 From movies;`
 
 ## Chapter 2: Aggregate Functions
+Calculations performed on multiple rows of a table are called aggregates.
+
+Reviews:
+- `COUNT()`: count the number of rows
+- `SUM()`: the sum of the values in a column
+- `MAX()/MIN()`: the largest/smallest value
+- `AVG()`: the average of the values in a column
+- `ROUND()`: round the values in the column
+- `GROUP BY` is a clause used with aggregate functions to combine data from one or more columns.
+- `HAVING` limit the results of a query based on an aggregate property.
+
+### COUNT
+`COUNT()` is a function that takes the name of a column as an argument and counts the number of non-empty values in that column.
+
+### SUM
+`SUM()` is a function that takes the name of a column as an argument and returns the sum of all the values in that column.
+
+### MAX/MIN
+The `MAX()` and `MIN()` functions return the highest and lowest values in a column, respectively.
+
+### AVG()
+The `AVG()` function works by taking a column name as an argument and returns the average value for that column.
+
+### ROUND()
+`ROUND()` function takes two arguments inside the parenthesis:
+- A column name
+- A column name
+
+### GROUP BY
+`GROUP BY` is a clause in SQL that is used with aggregate functions. It is used in collaboration with the SELECT statement to arrange identical data into groups.The GROUP BY statement comes after any WHERE statements, but before ORDER BY or LIMIT.
+SQL lets us use column reference(s) in our GROUP BY that will make our lives easier:
+- `1` is the first column selected
+- `2` is the second column selected
+- `3` is the third column selected
+
+### HAVING
+`HAVING` allows you to filter which groups to include and which to exclude.
+`HAVING` statement always comes after GROUP BY, but before ORDER BY and LIMIT.
