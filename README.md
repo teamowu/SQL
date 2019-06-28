@@ -17,6 +17,7 @@ A statement is a string of characters that the database recognizes as a valid co
 - Data
 - Real
 
+## Six Common Statements in SQL:
 ### 1.CREATE
 `CREATE TABLE table_name(
 column_name_1 data_type,
