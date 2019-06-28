@@ -170,3 +170,65 @@ SQL lets us use column reference(s) in our GROUP BY that will make our lives eas
 ### HAVING
 `HAVING` allows you to filter which groups to include and which to exclude.
 `HAVING` statement always comes after GROUP BY, but before ORDER BY and LIMIT.
+
+## Chapter 3: Working With Multiple Tables
+In order to efficiently store data, we often spread related information across multiple tables.Such as:
+- the `orders` would contain just the information necessary to describe what was ordered:
+   - order_id, customer_id, subscription_id, purchase_date
+- subscriptions would contain the information to describe each type of subscription:
+   - subscription_id, description, price_per_month, subscription_length
+- customers would contain the information for each customer:
+   - customer_id, customer_name, address
+   
+Reviews:
+- `JOIN` will combine rows from different tables if the join condition is true.
+- `LEFT JOIN` will return every row in the left table, and if the join condition is not met, NULL values are used to fill in the columns from the right table.
+- Primary key is a column that serves a unique identifier for the rows in the table.
+- Foreign key is a column that contains the primary key to another table.
+- `CROSS JOIN` lets us combine all rows of one table with all rows of another table.
+- `UNION` stacks one dataset on top of another.
+- `WITH` allows us to define one or more temporary tables that can be used in the final query.
+
+### JOIN
+Because column names are often repeated across multiple tables, we use the syntax table_name.column_name to be sure that our requests for columns are unambiguous. In our example, we use this syntax in the ON statement, but we will also use it in the SELECT or any other statement where we refer to column names.
+
+### INNER JOIN
+When we perform a simple `JOIN` (often called an `inner join`) our result only includes rows that match our ON condition.
+
+### LEFT JOIN
+A `left join` will keep all rows from the first table, regardless of whether there is a matching row in the second table.
+The final result will keep all rows of the left table but will omit the un-matched row.
+
+### PRIMARY KEY vs FOREIGN KEY
+Each of tables has a column that uniquely identifies each row of that table, for example:
+- `order_id` for `orders`
+- `subscription_id` for `subscriptions`
+- `customer_id` for `customers`
+These special columns are called primary keys.Primary keys have a few requirements:
+- None of the values can be NULL.
+- Each value must be unique (i.e., you can’t have two customers with the same customer_id in the customers table).
+- A table can not have more than one primary key column.
+When the primary key for one table appears in a different table, it is called a foreign key.
+- So `customer_id` is a primary key when it appears in `customers`, but a foreign key when it appears in `orders`.
+The most common types of joins will be joining a foreign key from one table with the primary key from another table. For instance:
+- When we join `orders` and `customers`, we join on `customer_id`, which is a foreign key in `orders` and the primary key in `customers`.
+
+### CROSS JOIN
+Combining all rows of one table with all rows of another table.
+Notice that `cross joins` don’t require an ON statement. You’re not really joining on any columns!
+Suppose we have 3 different shirts (white, grey, and olive) and 2 different pants (light denim and black), the results might look like this: `3 shirts × 2 pants = 6 combinations`
+- A more common usage of CROSS JOIN is when we need to compare each row of a table to a list of values.
+
+### UNION
+Sometimes we just want to stack one dataset on top of the other. Well, the `UNION` operator allows us to do that.
+SQL has strict rules for appending data:
+- Tables must have the same number of columns.
+- The columns must have the same data types in the same order as the first table.
+
+### WITH
+Often times, we want to combine two tables, but one of the tables is the result of another calculation.
+- The `WITH` statement allows us to perform a separate query (such as aggregating customer’s subscriptions)
+- `previous_results` is the alias that we will use to reference any columns from the query inside of the WITH clause
+- We can then go on to do whatever we want with this temporary table (such as join the temporary table with another table)
+Essentially, we are putting a whole first query inside the parentheses () and giving it a name. After that, we can use this name as if it’s a table and write a new query using the first query.
+- `With previous_results_name[a temporary table using aggregation] AS(SELECT.....) SELECT ....FROM...JOIN...ON ...=...;`
