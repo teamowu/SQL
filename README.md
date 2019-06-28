@@ -189,13 +189,13 @@ Reviews:
 - `UNION` stacks one dataset on top of another.
 - `WITH` allows us to define one or more temporary tables that can be used in the final query.
 
-### JOIN
+### JOIN: `SELECT...FROM...JOIN...ON...;`
 Because column names are often repeated across multiple tables, we use the syntax table_name.column_name to be sure that our requests for columns are unambiguous. In our example, we use this syntax in the ON statement, but we will also use it in the SELECT or any other statement where we refer to column names.
 
-### INNER JOIN
+### INNER JOIN: `SELECT...FROM...INNER JOIN...ON...;`
 When we perform a simple `JOIN` (often called an `inner join`) our result only includes rows that match our ON condition.
 
-### LEFT JOIN
+### LEFT JOIN: `SELECT...FROM...LEFT JOIN...ON...;`
 A `left join` will keep all rows from the first table, regardless of whether there is a matching row in the second table.
 The final result will keep all rows of the left table but will omit the un-matched row.
 
@@ -213,19 +213,19 @@ When the primary key for one table appears in a different table, it is called a 
 The most common types of joins will be joining a foreign key from one table with the primary key from another table. For instance:
 - When we join `orders` and `customers`, we join on `customer_id`, which is a foreign key in `orders` and the primary key in `customers`.
 
-### CROSS JOIN
+### CROSS JOIN: `SELECT...FROM...CROSS JOIN...;`
 Combining all rows of one table with all rows of another table.
 Notice that `cross joins` don’t require an ON statement. You’re not really joining on any columns!
 Suppose we have 3 different shirts (white, grey, and olive) and 2 different pants (light denim and black), the results might look like this: `3 shirts × 2 pants = 6 combinations`
 - A more common usage of CROSS JOIN is when we need to compare each row of a table to a list of values.
 
-### UNION
+### UNION: `SELECT...FROM...UNION SELECT...FROM...;`
 Sometimes we just want to stack one dataset on top of the other. Well, the `UNION` operator allows us to do that.
 SQL has strict rules for appending data:
 - Tables must have the same number of columns.
 - The columns must have the same data types in the same order as the first table.
 
-### WITH
+### WITH: `WITH...AS(SELECT.......)SELECT...FROM...JOIN...ON...;`
 Often times, we want to combine two tables, but one of the tables is the result of another calculation.
 - The `WITH` statement allows us to perform a separate query (such as aggregating customer’s subscriptions)
 - `previous_results` is the alias that we will use to reference any columns from the query inside of the WITH clause
